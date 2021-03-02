@@ -13,7 +13,7 @@ const Signin = () => {
          M.toast({html : "Invalid email!", classes:"#d32f2f red darken-2"})
       }
       else {
-      fetch("http://localhost:3000/signin", {
+      fetch("/signin", {
          method : "post",
          headers : {
             "Content-Type" : "application/json"
