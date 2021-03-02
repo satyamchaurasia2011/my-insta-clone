@@ -9,7 +9,7 @@ const CreatePost = () => {
     const [url,setUrl] = useState("");
     useEffect(() => {
         if(url){
-            fetch("http://localhost:3000/createpost", {
+            fetch("/createpost", {
                 method : "post",
                 headers : {
                    "Content-Type" : "application/json",
