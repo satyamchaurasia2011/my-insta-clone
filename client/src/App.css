@@ -61,3 +61,17 @@ a {
 .material-icons {
   cursor: pointer !important;
 }
+
+.collection-item{
+  width: 100%;
+}
+
+.himg{
+  width: 35px !important;
+  height: 32px !important;
+  border-radius: 80px !important;
+  padding-top: 0px !important;
+  margin-top: 10px !important;
+  margin-left: 10px !important;
+  margin-right: 10px !important;
+}

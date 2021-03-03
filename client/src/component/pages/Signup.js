@@ -105,8 +105,11 @@ const Signup = () => {
             className="btn waves-effect waves-light #1e88e5 blue darken-1">Sign Up
            </button>
            <h5>
-        <Link to="/signin">Already have an account ?</Link>
-        </h5>
+             <Link to="/signin">Already have an account ?</Link>
+             </h5>
+          <p>
+              <Link to="/reset">Forgot password?</Link> 
+          </p>
         </div>
     </div>
     )

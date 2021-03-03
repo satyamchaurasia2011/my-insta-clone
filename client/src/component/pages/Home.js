@@ -149,18 +149,28 @@ const Home = () => {
         <>
         {
             data ? 
-            <div className="home">
+           ( <div className="home">
             {
                 data.map(item => {
                     return (
                       <div className="card home-card" key = {item._id}>
-                        <h5 style={{padding : "5px"}}><Link to={item.postedBy._id !== state._id?'/profile/'+item.postedBy._id : "/profile"}>
-                            {item.postedBy.name}</Link>
-                        {item.postedBy._id == state._id && 
-                         <i style={{float:"right"}} onClick={()=>deletePost(item._id)} className="material-icons">
-                         delete
-                         </i>}
-                         </h5>
+                          <div style={{float:"left"}}>
+                             <img className ="himg" 
+                            src={state.pic}
+                            alt="img"
+                           />
+                          </div> 
+                          <div>
+                            <h5 style={{padding : "5px"}}>
+                                <Link style={{position: "relative",top: "8px"}}
+                                    to={item.postedBy._id !== state._id?'/profile/'+item.postedBy._id : "/profile"}>
+                                {item.postedBy.name}</Link>
+                                {item.postedBy._id === state._id && 
+                                <i style={{float:"right",position: "relative",top: "8px"}} onClick={()=>deletePost(item._id)} className="material-icons">
+                                delete
+                                </i>}
+                             </h5>
+                         </div>
                         <div className="card-image">
                          <img
                          src={item.photo}
@@ -226,7 +236,7 @@ const Home = () => {
                 })
             }
                 
-            </div>
+            </div>)
             : 
             <h2>loading...!</h2>
         }

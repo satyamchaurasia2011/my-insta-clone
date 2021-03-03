@@ -9,6 +9,8 @@ import Signup from '../src/component/pages/Signup';
 import CreatePost from '../src/component/pages/CreatePost';
 import UserProfile from '../src/component/pages/UserProfile';
 import SubscriberPost from '../src/component/pages/SubscriberPost';
+import Reset from '../src/component/pages/Reset';
+import NewPassword from '../src/component/pages/NewPassword';
 import {reducer, initialState} from './component/reducers/UserReducer';
 export const UserContext = createContext()
 const Routing = () => {
@@ -19,7 +21,8 @@ const Routing = () => {
     if(user){
       dispatch({type : "USER", payload:user}) 
     } else{
-      history.push('/signin')
+      if(!history.location.pathname.startsWith('/reset'))
+        history.push('/signin')
     }
   },[])
   return (
@@ -31,6 +34,8 @@ const Routing = () => {
       <Route path='/createpost' component = {CreatePost} />
       <Route path='/profile/:userid' component = {UserProfile} />
       <Route path='/myfollowingpost' component={SubscriberPost} />
+      <Route exact path='/reset' component={Reset} />
+      <Route path='/reset/:token' component={NewPassword} />
     </Switch>
   )
 }
