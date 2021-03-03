@@ -156,7 +156,7 @@ const Home = () => {
                       <div className="card home-card" key = {item._id}>
                           <div style={{float:"left"}}>
                              <img className ="himg" 
-                            src={state.pic}
+                            src={item.postedBy.pic}
                             alt="img"
                            />
                           </div> 

@@ -15,6 +15,7 @@ const Home = () => {
         .then(result => {
             // console.log(result);
              setData(result.posts)
+             console.log(data);
         })
     },[])
     const likePost = (id) => {
@@ -134,7 +135,7 @@ const Home = () => {
             body: JSON.stringify({ commentid })
         }).then(res =>res.json())
         .then(result => {
-         console.log(result);
+        //  console.log(result);
          const newData = data.map(item => {
             if(item._id === result._id){
                 return result
@@ -150,17 +151,27 @@ const Home = () => {
         {
             data ? 
             <div className="home">
-            {
-                data.map(item => {
+                {data.length===0 && <h1>No Post To Show</h1>}
+               { data.map(item => {
                     return (
                       <div className="card home-card" key = {item._id}>
-                        <h5 style={{padding : "5px"}}><Link to={item.postedBy._id !== state._id?'/profile/'+item.postedBy._id : "/profile"}>
-                            {item.postedBy.name}</Link>
-                        {item.postedBy._id == state._id && 
-                         <i style={{float:"right"}} onClick={()=>deletePost(item._id)} className="material-icons">
-                         delete
-                         </i>}
-                         </h5>
+                            <div style={{float:"left"}}>
+                             <img className ="himg" 
+                            src={item.postedBy.pic}
+                            alt="img"
+                           />
+                          </div> 
+                        <div>
+                            <h5 style={{padding : "5px"}}><Link style={{position: "relative",top: "8px"}}
+                             to={item.postedBy._id !== state._id?'/profile/'+item.postedBy._id : "/profile"}>
+                                {item.postedBy.name}</Link>
+                            {item.postedBy._id == state._id && 
+                            <i style={{float:"right",position: "relative",top: "8px"}}
+                             onClick={()=>deletePost(item._id)} className="material-icons">
+                            delete
+                            </i>}
+                            </h5>
+                        </div>
                         <div className="card-image">
                          <img
                          src={item.photo}

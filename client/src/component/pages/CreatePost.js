@@ -27,7 +27,6 @@ const CreatePost = () => {
                 }
                 else{
                    M.toast({html : "Posted...", classes:"#66bb6a green lighten-1"})
-                   console.log(data);
                    history.push('/');
                 }
              }).catch(err =>{

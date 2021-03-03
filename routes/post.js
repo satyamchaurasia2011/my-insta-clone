@@ -6,8 +6,8 @@ const Post = mongoose.model("Post");
 
 router.get("/posts", requireLogin,  (req, res)=> {
     Post.find()
-    .populate("postedBy", "_id name")  //this populate expands that id ...
-    .populate("comments.postedBy", "_id name")
+    .populate("postedBy", "_id name pic")  //this populate expands that id ...
+    .populate("comments.postedBy", "_id name pic")
     .sort('-createdAt')
     .then(posts => {
         res.json({posts : posts})
@@ -19,8 +19,8 @@ router.get("/posts", requireLogin,  (req, res)=> {
 router.get("/subscribedpost", requireLogin,  (req, res)=> {
     //if postedBy in following...
     Post.find({postedBy : {$in:req.user.following}})
-    .populate("postedBy", "_id name")  //this populate expands that id ...
-    .populate("comments.postedBy", "_id name")
+    .populate("postedBy", "_id name pic")  //this populate expands that id ...
+    .populate("comments.postedBy", "_id name pic")
     .sort('-createdAt')
     .then(posts => {
         res.json({posts : posts})
@@ -53,7 +53,7 @@ router.post("/createpost", requireLogin, (req, res) => {
 
 router.get("/mypost", requireLogin, (req, res) => {
     Post.find({postedBy : req.user._id})
-    .populate("postedBy", "_id, name")
+    .populate("postedBy", "_id, name pic")
     .then(mypost => {
         res.json({mypost : mypost})
     })
@@ -67,8 +67,8 @@ router.put('/like', requireLogin, (req,res) => {
         $push : {likes : req.user._id}
     },{
         new : true
-    }).populate("postedBy", "_id name")  //this populate expands that id ...
-    .populate("comments.postedBy", "_id name")
+    }).populate("postedBy", "_id name pic")  //this populate expands that id ...
+    .populate("comments.postedBy", "_id name pic")
     .exec((err,result) => {
         if(err){
             return res.status(422).json({error:err})
@@ -83,8 +83,8 @@ router.put('/unlike', requireLogin, (req,res) => {
         $pull : {likes : req.user._id}
     },{
         new : true
-    }).populate("postedBy", "_id name")  //this populate expands that id ...
-    .populate("comments.postedBy", "_id name")
+    }).populate("postedBy", "_id name pic")  //this populate expands that id ...
+    .populate("comments.postedBy", "_id name pic")
     .exec((err,result) => {
         if(err){
             return res.status(422).json({error:err})
@@ -103,8 +103,8 @@ router.put('/comment', requireLogin, (req,res) => {
         $push : {comments : comment}
     },{
         new : true
-    }).populate("postedBy", "_id name")  //this populate expands that id ...
-    .populate("comments.postedBy", "_id name")
+    }).populate("postedBy", "_id name pic")  //this populate expands that id ...
+    .populate("comments.postedBy", "_id name pic")
     
     .exec((err,result) => {
         if(err){
@@ -117,9 +117,8 @@ router.put('/comment', requireLogin, (req,res) => {
 
 router.delete('/deletepost/:postId', requireLogin, (req,res) => {
     Post.findOne({_id:req.params.postId})
-    .populate('postedBy', "_id")
+    .populate('postedBy', "_id pic")
     .exec((err, post) => {
-        console.log(post);
         if(err || !post){
             return res.status(422).json({error:err})
         }
@@ -148,8 +147,8 @@ router.delete('/deletecomment/:postId', requireLogin, (req, res) => {
 
                         $pull: { comments: comment }
                     }, { new: true })
-                        .populate("postedBy", "_id name")
-                        .populate("comments.postedBy", "_id name")
+                        .populate("postedBy", "_id name pic")
+                        .populate("comments.postedBy", "_id name pic")
                         .exec((err, data) => {
                             if (err) {
                                 return res.status(422).json({

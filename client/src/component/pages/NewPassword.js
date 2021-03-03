@@ -6,7 +6,6 @@ const NewPassword = () => {
    const [password, setPassword] = useState("");
    const [visibile, setVisibile] = useState(false);
    const {token} = useParams();
-   console.log(token);
    const postData = () => {
       fetch("/new-password", {
          method : "post",
