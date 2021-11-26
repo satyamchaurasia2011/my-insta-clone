@@ -2,9 +2,8 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const {Mongoose_URI} = require("./config/keys");
-const server = require('http').createServer(app);
 const cors = require("cors");
-const io = require("socket.io")(server);
+
 require('./model/user');
 require('./model/post');
 require("./model/Conversation");
@@ -25,6 +24,11 @@ mongoose.connection.on('error',(err) => {
     console.log("error occured!!", err);
 } );
 const PORT = process.env.PORT || '5000';
+
+var server = app.listen(PORT, () => {
+    console.log("Server started on port " + PORT);
+})
+var io = require("socket.io")(server);
 
 //socket
 let users = [];
@@ -65,10 +69,6 @@ io.on('connection', (socket) => {
         removeUser(socket.id);
         io.emit("getUsers", users);
     })
-})
-
-app.listen(PORT, () => {
-    console.log("Server started on port " + PORT);
 })
 
 
