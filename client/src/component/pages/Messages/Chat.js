@@ -46,7 +46,7 @@ function Chat() {
     if (window.screen.width < 600) setRightShow(false);
     socket.current = io.connect("https://insta-back.herokuapp.com/");
     socket.current.on("getMessage", (data) => {
-      console.log(data);
+     // console.log(data);
       setArrivalMessage({
         sender: data.senderId,
         text: data.text,
@@ -64,6 +64,7 @@ function Chat() {
   useEffect(() => {
     socket.current.emit("addUser", state?._id);
     socket.current.on("getUsers", (onlineusers) => {
+      console.log(onlineusers);
       setOnlineUsers(onlineusers);
     });
   }, [state?._id]);
