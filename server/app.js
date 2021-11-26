@@ -6,7 +6,7 @@ const server = require('http').createServer(app);
 const cors = require("cors");
 const io = require("socket.io")(8900, {
     cors : {
-        origin : "https://my-instagram-clone.netlify.app/",
+        origin : "https://my-instagram-clone.netlify.app",
     },
 });
 require('./model/user');
