@@ -53,23 +53,24 @@ const Profile = () => {
     return (
         <>
        { myprofile ? 
-        <div style={{maxWidth:"550px", margin:"0px auto"}}>
+        <div style={{maxWidth:"950px", margin:"0px auto"}}>
         <div style = {{
-            margin : "18px 0px",
+            margin : "38px 0px",
             borderBottom : "1px solid grey",
             paddingBottom : "10px"
          }}>
              <div style = {{
             display : "flex",
-            justifyContent : "space-around",
+            justifyContent : "space-evenly",
+            alignItems:'center'
          }}>
            <div>
-               <img style={{width : "160px", height : "160px", borderRadius : "80px"}}
+               <img  className='pro-dp'
                src={state.pic}
                alt="img"
                 />
            </div> 
-           <div>
+           <div className='pro-right' style={{marginTop:'-20px'}}>
                <h4>{state.name}</h4>
                <h5>{state.email}</h5>
                <div style={{display:"flex", justifyContent : "space-between", width:"108%"}}>
@@ -79,7 +80,7 @@ const Profile = () => {
                </div>
            </div>
         </div>
-        <div className="file-field input-field" style={{margin:"10px"}}>
+        <div className="file-field input-field" style={{margin:"10px 10px 10px 15%",width:'50%'}}>
                 <div className="btn #1e88e5 blue darken-1">
                     <span>Update pic</span>
                     <input type="file" onChange = {(event) => updatePhoto(event.target.files[0]) }/>

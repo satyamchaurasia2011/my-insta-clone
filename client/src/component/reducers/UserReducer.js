@@ -1,4 +1,4 @@
-export const initialState = null;
+export const initialState = JSON.parse(localStorage.getItem("user"));
 
 export const reducer = (state, action) => {
     if(action.type === 'USER'){

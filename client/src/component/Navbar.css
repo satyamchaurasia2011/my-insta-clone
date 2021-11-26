@@ -1,0 +1,133 @@
+ .wrapper{
+ padding: 5px 20%;
+}
+.wrapper-1{
+    padding: 5px 5% 5px 20%;
+}
+nav{
+    height: 72px !important;
+}
+
+.brand, .brand-1 {
+    font-size: 40px !important;
+}
+nav>div>ul>li{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+nav ul a{
+    font-size: 1.25rem !important;
+}
+.responsive-nav{
+    display: none;
+}
+.resp-out{
+    display: none;
+}
+.in-right>img{
+    margin-top: 14px;
+    width: 40px;
+    height: 40px;
+    border-radius: 200%;
+    cursor: pointer;
+}
+
+@media (max-width:1120px) {
+    .nav-wrapper{
+        padding: 5px 2% 5px 5%;
+       }
+       nav>div>ul>li{
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}
+
+@media (max-width:900px) {
+    .brand{
+        font-size: 30px !important;
+        margin-left: 15% !important;
+    }
+    nav{
+        height: 60px !important;
+    }
+    nav ul a{
+        font-size: 1rem !important;
+    }
+     .wrapper{
+        padding: 0px 10%;
+       }
+    .wrapper-1{
+         padding: 0px 2%;
+    }
+    .brand-1{
+        font-size: 30px !important;
+        margin-left: 5%;
+    }
+       
+}
+
+@media (max-width : 500px) {
+    .brand{
+        margin-left: 5% !important;
+        margin-top: 4px;
+    }
+    nav .nav-wrapper{
+        padding: 0px 2%;
+       }
+       nav>div>ul>li{
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 4px;
+    }
+    .logout{
+        font-size: 11px;
+      padding: 0 11px;
+      margin-top: -8px;
+    }
+    .in-right{
+        display: none;
+    }
+    .brand-1{
+      
+        margin-left: 2%;
+    }
+    .wrapper-1>a{
+        margin-top: 4px;
+    }
+    .responsive-nav{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        position: fixed;
+        bottom: 0%;
+        z-index: 100;
+        background-color: #F8F8F8;
+        padding: 11px 20px 3px 20px;
+        align-items: center;
+    }
+    .responsive-nav>a>img{
+        border-radius: 200%;
+        width: 25px;
+        height: 25px;
+    }
+    .res-icon{
+        font-size: 23px !important;
+    }
+    nav ul a {
+        font-size: 0.88rem !important;
+        padding: 0px 12px;
+    }
+    .resp-out{
+        display: block;
+        margin-top: 10px;
+        color: black;
+    }
+    
+}
+
+@media (max-width: 322px) {
+    nav>div>ul>li{
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+}

@@ -1,0 +1,36 @@
+.user-inbox{
+    display: flex;
+    align-items: center;
+    padding: 9px 15px;
+    cursor: pointer;
+    position: relative;
+}
+.user-inbox:hover{
+    background-color: #F8F8F8;
+}
+.user-inbox>img{
+    width: 60px;
+    height: 60px;
+    border-radius: 200%;
+    margin-right: 15px;
+}
+.user-inbox>div>h6{
+    margin: 0;
+    font-size: 16px;
+}
+.user-inbox>div>p{
+    margin:  4px 0px 0px 0px;
+    color: grey;
+    font-size: 14px;
+}
+
+.online{
+    position: absolute;
+    z-index: 300;
+    top: 10px;
+    left: 59px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: #21fc6b;
+}

@@ -23,6 +23,24 @@ router.get('/user/:id', requireLogin, (req, res) => {
 
 })
 
+router.get('/alluser', requireLogin, (req, res) => {
+    User.find().then(users => {
+        return res.status(200).json(users);
+    }).catch(err => {
+        return  res.status(404).json({error : "users not found"})
+    })
+})
+
+router.get('/getuser/:id', requireLogin, (req, res) => {
+    //console.log(req.params.id);
+    User.findOne({_id : req.params.id})
+    .then(user => {
+        return res.status(200).json(user);
+    }).catch(err => {
+        return  res.status(404).json({error : "users not found"})
+    })
+})
+
 router.put('/follow', requireLogin, (req, res) => {
     User.findByIdAndUpdate(req.body.followId, {
         $push : {followers : req.user._id}

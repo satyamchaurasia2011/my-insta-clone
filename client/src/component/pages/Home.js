@@ -16,7 +16,7 @@ const Home = () => {
             // console.log(result);
              setData(result.posts)
         })
-    },[])
+    },[]) 
     const likePost = (id) => {
         fetch('/like', {
             method : "put",
@@ -154,22 +154,26 @@ const Home = () => {
                 data.map(item => {
                     return (
                       <div className="card home-card" key = {item._id}>
-                          <div style={{float:"left"}}>
+                          <div className ='post-head'>
+                          <div>
                              <img className ="himg" 
                             src={item.postedBy.pic}
                             alt="img"
                            />
                           </div> 
-                          <div>
+                          <div className='post-by'>
                             <h5 style={{padding : "5px"}}>
-                                <Link style={{position: "relative",top: "8px"}}
+                                <Link style={{position: "relative",top: "-2px"}}
                                     to={item.postedBy._id !== state._id?'/profile/'+item.postedBy._id : "/profile"}>
                                 {item.postedBy.name}</Link>
-                                {item.postedBy._id === state._id && 
-                                <i style={{float:"right",position: "relative",top: "8px"}} onClick={()=>deletePost(item._id)} className="material-icons">
+                             </h5>
+                         </div>
+                         <div className='delete-i'>
+                         {item.postedBy._id === state._id && 
+                                <i style={{fontSize:'30px'}} onClick={()=>deletePost(item._id)} className="material-icons">
                                 delete
                                 </i>}
-                             </h5>
+                        </div>
                          </div>
                         <div className="card-image">
                          <img

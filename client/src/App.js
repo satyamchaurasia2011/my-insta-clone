@@ -1,7 +1,7 @@
-import {React, useEffect, createContext, useReducer, useContext} from 'react';
+import {React, useEffect, createContext, useReducer, useContext, useState} from 'react';
 import './App.css';
 import Navbar from '../src/component/Navbar';
-import { BrowserRouter, Route, useHistory, Switch } from "react-router-dom";
+import { BrowserRouter, Route, useHistory, Switch, Redirect } from "react-router-dom";
 import Home from '../src/component/pages/Home';
 import Profile from '../src/component/pages/Profile';
 import Signin from '../src/component/pages/Signin';
@@ -12,12 +12,14 @@ import SubscriberPost from '../src/component/pages/SubscriberPost';
 import Reset from '../src/component/pages/Reset';
 import NewPassword from '../src/component/pages/NewPassword';
 import {reducer, initialState} from './component/reducers/UserReducer';
+import Chat from './component/pages/Messages/Chat';
 export const UserContext = createContext()
 const Routing = () => {
   const history = useHistory();
   const {state, dispatch} = useContext(UserContext)
+  
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"))
+   const user = JSON.parse(localStorage.getItem("user"));
     if(user){
       dispatch({type : "USER", payload:user}) 
     } else{
@@ -29,13 +31,14 @@ const Routing = () => {
     <Switch>
        <Route path='/' exact component = {Home} />
       <Route exact path='/profile' component = {Profile} />
-      <Route path='/signin' component = {Signin} />
-      <Route path='/signup' component = {Signup} />
+      <Route exact path='/signin' render = {()=>JSON.parse(localStorage.getItem("user"))?<Redirect to='/'/>:<Signin/>} />
+      <Route path='/signup' render = {()=>JSON.parse(localStorage.getItem("user"))?<Redirect to='/'/>:<Signin/>} component = {Signup} />
       <Route path='/createpost' component = {CreatePost} />
       <Route path='/profile/:userid' component = {UserProfile} />
       <Route path='/myfollowingpost' component={SubscriberPost} />
       <Route exact path='/reset' component={Reset} />
       <Route path='/reset/:token' component={NewPassword} />
+      <Route path='/inbox' component={Chat} />
     </Switch>
   )
 }

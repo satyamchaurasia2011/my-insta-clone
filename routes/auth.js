@@ -10,8 +10,8 @@ const {JWT_SECRET,SENDGRID_API,EMAIL} = require("../config/keys");
 //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
 const nodemailer = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
-
-
+const { OAuth2Client } = require("google-auth-library");
+const client = new OAuth2Client('803835066549-eukhrbnee2bhb3ff5apbgf5fbed1m8bj.apps.googleusercontent.com');
 const transporter = nodemailer.createTransport(sendgridTransport({
     auth : {
         api_key : SENDGRID_API
@@ -82,6 +82,63 @@ router.post("/signin", (req, res) => {
             console.log(err);
         })
     })
+})
+//google
+
+router.post("/signupwithgoogle", async (req,res) => {
+    const { tokenId } = req.body;
+	await client
+		.verifyIdToken({ idToken: tokenId, audience: '803835066549-eukhrbnee2bhb3ff5apbgf5fbed1m8bj.apps.googleusercontent.com' })
+		.then((response) => {
+           // console.log(response);
+			const { email_verified, name, email, picture } = response.payload;
+			if (email_verified) {
+				User.findOne({ email }).exec(async (err, user) => {
+					if (err) {
+						return res.send(400).json({ error: "Something went wrong...." });
+					} else {
+						if (user) {
+							console.log(user);
+							const token = jwt.sign(
+								{
+									_id: user._id,
+								},
+								JWT_SECRET,
+								{ expiresIn: "7d" }
+							);
+                                const {_id,name,email,followers,following,pic} = user;
+                                res.json({token : token, user : {_id,name,email,followers,following,pic}});
+						} else {
+							let user = new User({
+								name,
+								email,
+								pic : picture
+							});
+							console.log(user);
+							try {
+								await user.save();
+                                transporter.sendMail({
+                                    to : user.email,
+                                    from : "satyamchaurasia2011@gmail.com",
+                                    subject : "signup success",
+                                    html : "<h1>Welcome to Instagram</h1><br><br><p>Hey,You are successfully create your account in my-insta-clone app.</p>"
+                                })
+								console.log(user._id);
+                                const token = jwt.sign({_id : user._id}, JWT_SECRET);
+                                const {_id,name,email,followers,following,pic} = user;
+                                res.json({token : token, user : {_id,name,email,followers,following,pic}});
+							} catch (error) {
+								console.log(error);
+								return res
+									.status(400)
+									.json({ error: "something went wrong..." });
+							}
+						}
+					}
+				});
+			}
+			// console.log(response.payload);
+		});
 })
 
 router.post('/reset-password', (req,res) => {

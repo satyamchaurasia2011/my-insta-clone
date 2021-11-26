@@ -79,21 +79,22 @@ const Profile = () => {
     return (
         <>
         {userProfile ? 
-            <div style={{maxWidth:"550px", margin:"0px auto"}}>
+            <div style={{maxWidth:"750px", margin:"0px auto"}}>
             <div style = {{
                 display : "flex",
-                justifyContent : "space-around",
+                justifyContent : "space-evenly",
                 margin : "18px 0px",
                 borderBottom : "1px solid grey",
-                paddingBottom : "10px"
+                paddingBottom : "10px",
+                alignItems:'center'
              }}>
                <div>
-                   <img style={{width : "160px", height : "160px", borderRadius : "80px"}}
+                   <img className='pro-dp'
                    src={userProfile.user.pic}
                    alt="img"
                     />
                </div> 
-               <div>
+               <div className='pro-right'>
                    <h4>{userProfile.user.name}</h4>
                    <h5>{userProfile.user.email}</h5>
                    <div style={{display:"flex", justifyContent : "space-between", width:"108%"}}>
@@ -107,6 +108,7 @@ const Profile = () => {
                        setIsFollow(prev => !prev)
                     }}
               className="btn waves-effect waves-light #1e88e5 blue darken-1">{isfollow?"Unfollow" : "Follow"}
+              {console.log(userProfile.user.followers.filter(id =>  {if(id === userid) return true; else return false} ))}
               </button>
                </div>
             </div>
@@ -127,4 +129,3 @@ const Profile = () => {
 }
 
 export default Profile
- 
