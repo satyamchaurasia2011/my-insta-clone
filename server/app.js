@@ -28,7 +28,9 @@ const PORT = process.env.PORT || '5000';
 var server = app.listen(PORT, () => {
     console.log("Server started on port " + PORT);
 })
-var io = require("socket.io")(server);
+var io = require("socket.io")(server, {
+    cors : '*'
+});
 
 //socket
 let users = [];
