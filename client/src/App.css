@@ -137,7 +137,7 @@ a {
   text-transform: lowercase;
 }
 .post-by{
-  width: 60%;
+  width: 100%;
 }
 .post-by>h5{
   text-transform: capitalize;

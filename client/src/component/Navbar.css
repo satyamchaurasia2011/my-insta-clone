@@ -107,11 +107,11 @@ nav ul a{
     }
     .responsive-nav>a>img{
         border-radius: 200%;
-        width: 25px;
-        height: 25px;
+        width: 34px;
+        height: 34px;
     }
     .res-icon{
-        font-size: 23px !important;
+        font-size: 29px !important;
     }
     nav ul a {
         font-size: 0.88rem !important;

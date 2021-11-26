@@ -5,7 +5,10 @@ const {Mongoose_URI} = require("./config/keys");
 const server = require('http').createServer(app);
 const cors = require("cors");
 const io = require("socket.io")(server, {
-	cors: "*",
+	cors: {
+        origin: '*',
+        methods: ['GET', 'POST']
+    }
 });
 require('./model/user');
 require('./model/post');

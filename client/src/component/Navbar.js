@@ -204,7 +204,7 @@ const Navbar = () => {
         <i
           data-target="modal1"
           className="material-icons modal-trigger"
-          style={{ color: "black", fontSize: "26px" }}
+          style={{ color: "black", fontSize: "34px" }}
         >
           search
         </i>

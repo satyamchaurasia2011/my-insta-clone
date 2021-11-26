@@ -185,7 +185,7 @@
         width: 290px !important;
     }
     .arrow-bck{
-        display: block;
+        display: block !important;
     }
 }
 
