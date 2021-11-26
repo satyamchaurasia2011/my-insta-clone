@@ -197,7 +197,7 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-      <div className="responsive-nav">
+     {state&&( <div className="responsive-nav">
         <Link to="/">
           <HomeIcon className="res-icon" />
         </Link>
@@ -217,7 +217,7 @@ const Navbar = () => {
         <Link to="/profile">
           <img src={state?.pic} alt />
         </Link>
-      </div>
+      </div>)}
     </div>
   );
 };
