@@ -4,12 +4,7 @@ const mongoose = require("mongoose");
 const {Mongoose_URI} = require("./config/keys");
 const server = require('http').createServer(app);
 const cors = require("cors");
-const io = require("socket.io")(server, {
-	cors: {
-        origin: '*',
-        methods: ['GET', 'POST']
-    }
-});
+const io = require("socket.io")(server);
 require('./model/user');
 require('./model/post');
 require("./model/Conversation");
@@ -73,7 +68,7 @@ io.on('connection', (socket) => {
 })
 
 app.listen(PORT, () => {
-    console.log("Server started on port 5000");
+    console.log("Server started on port " + PORT);
 })
 
 
