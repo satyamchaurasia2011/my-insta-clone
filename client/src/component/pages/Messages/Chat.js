@@ -44,7 +44,7 @@ function Chat() {
   const handleClose = () => setOpen(false);
   useEffect(() => {
     if (window.screen.width < 600) setRightShow(false);
-    socket.current = io("https://my-instagram-clone.netlify.app");
+    socket.current = io("ws://localhost:8900");
     socket.current.on("getMessage", (data) => {
       console.log(data);
       setArrivalMessage({
