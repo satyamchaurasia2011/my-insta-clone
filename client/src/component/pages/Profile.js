@@ -5,7 +5,7 @@ const Profile = () => {
     const {state, dispatch} = useContext(UserContext)
     const [image, setImage] = useState("");
     useEffect(() => {
-        fetch('/mypost', {
+        fetch('https://insta-back.herokuapp.com/mypost', {
             headers : {
                 "Authorization" : "Bearer " + localStorage.getItem("jwt")
             }
@@ -26,7 +26,7 @@ const Profile = () => {
              }).then(res => res.json())
              .then(data => {
                 
-                fetch('/updatepic', {
+                fetch('https://insta-back.herokuapp.com/updatepic', {
                     method : "put",
                     headers: {
                         "Content-Type" : "application/json",

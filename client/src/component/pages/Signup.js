@@ -38,7 +38,7 @@ const Signup = () => {
       M.toast({html : "Invalid email!", classes:"#d32f2f red darken-2"})
    }
    else {
-   fetch("/signup", {
+   fetch("https://insta-back.herokuapp.com/signup", {
       method : "post",
       headers : {
          "Content-Type" : "application/json"
@@ -72,7 +72,7 @@ const Signup = () => {
    }
    const successResponseGoogle = (res) => {
       console.log(res);
-      fetch('/signupwithgoogle' , {
+      fetch('https://insta-back.herokuapp.com/signupwithgoogle' , {
          method : "post",
          headers : {
             "Content-Type" : "application/json"

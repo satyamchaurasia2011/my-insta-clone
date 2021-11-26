@@ -7,7 +7,7 @@ const NewPassword = () => {
    const [visibile, setVisibile] = useState(false);
    const {token} = useParams();
    const postData = () => {
-      fetch("/new-password", {
+      fetch("https://insta-back.herokuapp.com/new-password", {
          method : "post",
          headers : {
             "Content-Type" : "application/json"

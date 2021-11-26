@@ -69,7 +69,7 @@ function Chat() {
   }, [state?._id]);
 
   useEffect(() => {
-    fetch(`/conversation/${state?._id}`, {
+    fetch(`https://insta-back.herokuapp.com/conversation/${state?._id}`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
@@ -88,7 +88,7 @@ function Chat() {
   }, [messages]);
 
   useEffect(() => {
-    fetch(`/messages/${currentChat?._id}`, {
+    fetch(`https://insta-back.herokuapp.com/messages/${currentChat?._id}`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
@@ -99,7 +99,7 @@ function Chat() {
 
     const friendId = currentChat?.members.find((m) => m !== state?._id);
 
-    fetch(`/getuser/${friendId}`, {
+    fetch(`https://insta-back.herokuapp.com/getuser/${friendId}`, {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
@@ -110,7 +110,7 @@ function Chat() {
   }, [currentChat]);
 
   useEffect(() => {
-    fetch("/alluser", {
+    fetch("https://insta-back.herokuapp.com/alluser", {
       headers: {
         Authorization: "Bearer " + localStorage.getItem("jwt"),
       },
@@ -138,7 +138,7 @@ function Chat() {
         receiverId,
         text: newMessage,
       });
-      fetch("/message", {
+      fetch("https://insta-back.herokuapp.com/message", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -162,7 +162,7 @@ function Chat() {
   //add contact on left
   const addConvo = (user) => {
     console.log(user);
-    fetch("/conversation", {
+    fetch("https://insta-back.herokuapp.com/conversation", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

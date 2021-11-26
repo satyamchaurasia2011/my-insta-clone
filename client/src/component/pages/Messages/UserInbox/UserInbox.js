@@ -9,7 +9,7 @@ function UserInbox({conversation, onlineUsers}) {
         const friendId = await conversation.members.find((m) => m !== state?._id);
         console.log(onlineUsers);
         setOnline(onlineUsers.find(user => user.userId === friendId));
-        fetch("/getuser/" + friendId , {
+        fetch("https://insta-back.herokuapp.com/getuser/" + friendId , {
             headers : {
               "Authorization" : "Bearer " + localStorage.getItem("jwt")
             }

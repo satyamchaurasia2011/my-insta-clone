@@ -8,7 +8,7 @@ const Profile = () => {
     const [isfollow, setIsFollow] = useState(state?state.following.includes(userid):false)
     
     useEffect(() => {
-        fetch(`/user/${userid}`, {
+        fetch(`https://insta-back.herokuapp.com/user/${userid}`, {
             headers : {
                 "Authorization" : "Bearer " + localStorage.getItem("jwt")
             }
@@ -20,7 +20,7 @@ const Profile = () => {
     },[])
 
     const followUser = () => {
-        fetch('/follow', {
+        fetch('https://insta-back.herokuapp.com/follow', {
             method:"put",
             headers: {
                 "Content-Type" : "application/json",
@@ -48,7 +48,7 @@ const Profile = () => {
         })
     }
     const unFollowUser = () => {
-        fetch('/unfollow', {
+        fetch('https://insta-back.herokuapp.com/unfollow', {
             method:"put",
             headers: {
                 "Content-Type" : "application/json",

@@ -9,7 +9,7 @@ const Reset = () => {
          M.toast({html : "Invalid email!", classes:"#d32f2f red darken-2"})
       }
       else {
-      fetch("/reset-password", {
+      fetch("https://insta-back.herokuapp.com/reset-password", {
          method : "post",
          headers : {
             "Content-Type" : "application/json"

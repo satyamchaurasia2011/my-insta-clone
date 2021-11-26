@@ -9,7 +9,7 @@ const CreatePost = () => {
     const [url,setUrl] = useState("");
     useEffect(() => {
         if(url){
-            fetch("/createpost", {
+            fetch("https://insta-back.herokuapp.com/createpost", {
                 method : "post",
                 headers : {
                    "Content-Type" : "application/json",

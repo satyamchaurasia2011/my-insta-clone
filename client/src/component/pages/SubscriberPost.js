@@ -7,7 +7,7 @@ const Home = () => {
     const {state, dispatch} = useContext(UserContext)
     const [read, setRead] = useState(false)
     useEffect(() =>{
-        fetch('/subscribedpost', {
+        fetch('https://insta-back.herokuapp.com/subscribedpost', {
             headers : {
                 "Authorization" : "Bearer " + localStorage.getItem("jwt")
             }
@@ -19,7 +19,7 @@ const Home = () => {
         })
     },[])
     const likePost = (id) => {
-        fetch('/like', {
+        fetch('https://insta-back.herokuapp.com/like', {
             method : "put",
             headers : {
                 "Content-Type" : "application/json",
@@ -44,7 +44,7 @@ const Home = () => {
         })
     }
     const unlikePost = (id) => {
-        fetch('/unlike', {
+        fetch('https://insta-back.herokuapp.com/unlike', {
             method : "put",
             headers : {
                 "Content-Type" : "application/json",
@@ -69,7 +69,7 @@ const Home = () => {
         })
     }
     const commentPost =(text, postId) => {
-        fetch('/comment', {
+        fetch('https://insta-back.herokuapp.com/comment', {
             method:"put",
             headers: {
                 "Content-Type" : "application/json",
@@ -109,7 +109,7 @@ const Home = () => {
         )
     }
     const deletePost = (postid) => {
-        fetch(`/deletepost/${postid}`, {
+        fetch(`https://insta-back.herokuapp.com/deletepost/${postid}`, {
             method : "delete",
             headers: {
                 "Content-Type" : "application/json",
@@ -126,7 +126,7 @@ const Home = () => {
         })
     }
     const deleteComment = (postId,commentid) => {
-        fetch(`/deletecomment/${postId}`, {
+        fetch(`https://insta-back.herokuapp.com/deletecomment/${postId}`, {
             method : "delete",
             headers: {
                 "Content-Type" : "application/json",
