@@ -19,9 +19,6 @@ app.use(require('./routes/post'));
 app.use(require('./routes/user')); 
 app.use(require("./routes/conversations"));
 app.use(require("./routes/messages"));
-app.get('/', (req, res) => {
-    res.send("hello");
-})
 mongoose.connect(Mongoose_URI, {useNewUrlParser: true, useUnifiedTopology: true});
 mongoose.connection.on('connected',() => {
     console.log("successfully connected to Mongo DB server Database.");
