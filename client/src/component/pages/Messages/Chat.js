@@ -215,7 +215,6 @@ function Chat() {
         </div>
         <div className="msg-list">
           {conversations.map((c) => {
-            {console.log(onlineUsers)}
             return (
               <div
                 onClick={() => {
