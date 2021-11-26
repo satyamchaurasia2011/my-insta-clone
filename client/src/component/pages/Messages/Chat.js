@@ -44,7 +44,7 @@ function Chat() {
   const handleClose = () => setOpen(false);
   useEffect(() => {
     if (window.screen.width < 600) setRightShow(false);
-    socket.current = io('ws://insta-back.herokuapp.com:42988/socket.io/?EIO=4&transport=websocket');
+    socket.current = io("/");
     socket.current.on("getMessage", (data) => {
       console.log(data);
       setArrivalMessage({
