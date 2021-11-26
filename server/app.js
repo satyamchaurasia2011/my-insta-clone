@@ -4,10 +4,8 @@ const mongoose = require("mongoose");
 const {Mongoose_URI} = require("./config/keys");
 const server = require('http').createServer(app);
 const cors = require("cors");
-const io = require("socket.io")(8900, {
-    cors : {
-        origin : "https://my-instagram-clone.netlify.app",
-    },
+const io = require("socket.io")(server, {
+	cors: "*",
 });
 require('./model/user');
 require('./model/post');
