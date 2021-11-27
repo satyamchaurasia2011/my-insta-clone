@@ -121,7 +121,7 @@ const Navbar = () => {
   };
   const searchUser = (query) => {
     setSearch(query);
-    fetch("/search-user", {
+    fetch("https://insta-back.herokuapp.com/search-user", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
