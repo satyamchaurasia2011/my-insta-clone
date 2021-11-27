@@ -61,10 +61,10 @@ function Chat() {
       setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentChat]);
 
-  useEffect(() => {
+  useEffect(async() => {
     socket.current.emit("addUser", state?._id);
-    socket.current.on("getUsers", (onlineusers) => {
-     // console.log(onlineusers);
+    await socket.current.on("getUsers", (onlineusers) => {
+      console.log(onlineusers);
       setOnlineUsers(onlineusers);
     });
   }, [state?._id]);
