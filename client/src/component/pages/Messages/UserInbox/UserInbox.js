@@ -10,7 +10,7 @@ function UserInbox({conversation}) {
     const [onlineUsers, setOnlineUsers] = useState([]);
     const [online, setOnline] = useState(null);
     useEffect(() => {
-        socket.current.on("getUsers", (onlineusers) => {
+        socket.current?.on("getUsers", (onlineusers) => {
           console.log(onlineusers);
           setOnlineUsers(onlineusers);
         });
