@@ -17,7 +17,7 @@ function UserInbox({conversation,onlineUsers}) {
           }).then(res => res.json())
           .then(data => setUser(data))
           .catch(err => console.log(err));
-      }, [conversation, state?._id]);
+      }, [conversation, state?._id,onlineUsers]);
     return (
         <div className='user-inbox'>
            {online && <div className='online'></div>}
