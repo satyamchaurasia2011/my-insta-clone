@@ -1,10 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { UserContext } from '../../../../App';
 import './UserInbox.css'
-const socket = useRef();
+
 import { io } from "socket.io-client";
 function UserInbox({conversation}) {
     const [user, setUser] = useState(null);
+    const socket = useRef();
     const {state, dispatch} = useContext(UserContext);
     const [onlineUsers, setOnlineUsers] = useState([]);
     const [online, setOnline] = useState(null);
