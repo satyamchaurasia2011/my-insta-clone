@@ -5,13 +5,13 @@ const bcrypt = require("bcryptjs");
 const User = mongoose.model("User");
 const crypto = require('crypto');
 const jwt = require("jsonwebtoken");
-const {JWT_SECRET,SENDGRID_API,EMAIL} = require("../config/keys");
+const {JWT_SECRET,SENDGRID_API,EMAIL,GOOGLE_CLIENT_ID} = require("../config/keys");
 // const requireLogin = require("../requireLogin/requireLogin")
 //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
 const nodemailer = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
 const { OAuth2Client } = require("google-auth-library");
-const client = new OAuth2Client('803835066549-eukhrbnee2bhb3ff5apbgf5fbed1m8bj.apps.googleusercontent.com');
+const client = new OAuth2Client(GOOGLE_CLIENT_ID);
 const transporter = nodemailer.createTransport(sendgridTransport({
     auth : {
         api_key : SENDGRID_API
@@ -88,7 +88,7 @@ router.post("/signin", (req, res) => {
 router.post("/signupwithgoogle", async (req,res) => {
     const { tokenId } = req.body;
 	await client
-		.verifyIdToken({ idToken: tokenId, audience: '803835066549-eukhrbnee2bhb3ff5apbgf5fbed1m8bj.apps.googleusercontent.com' })
+		.verifyIdToken({ idToken: tokenId, audience: GOOGLE_CLIENT_ID })
 		.then((response) => {
            // console.log(response);
 			const { email_verified, name, email, picture } = response.payload;

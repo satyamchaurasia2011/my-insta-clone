@@ -64,7 +64,7 @@ function Chat() {
   useEffect(async() => {
     socket.current.emit("addUser", state?._id);
     await socket.current.on("getUsers", (onlineusers) => {
-      console.log(onlineusers);
+     // console.log(onlineusers);
       setOnlineUsers(onlineusers);
     });
   }, [state?._id]);
@@ -219,7 +219,6 @@ function Chat() {
         </div>
         <div className="msg-list">
           {conversations.map((c) => {
-            {console.log(onlineUsers)}
             return (
               <div
                 onClick={() => {

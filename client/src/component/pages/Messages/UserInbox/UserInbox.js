@@ -8,7 +8,7 @@ function UserInbox({conversation,onlineUsers}) {
     const [online, setOnline] = useState(null);
     useEffect(async () => {
         const friendId = await conversation.members.find((m) => m !== state?._id);
-        console.log(onlineUsers);
+       // console.log(onlineUsers);
         setOnline(onlineUsers?.find(user => user.userId === friendId));
         fetch("https://insta-back.herokuapp.com/getuser/" + friendId , {
             headers : {

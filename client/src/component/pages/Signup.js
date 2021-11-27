@@ -141,7 +141,7 @@ const Signup = () => {
            </button>
            <p>OR</p>
            <GoogleLogin
-               clientId="803835066549-eukhrbnee2bhb3ff5apbgf5fbed1m8bj.apps.googleusercontent.com"
+               clientId={process.env.GOOGLE_CLIENT_ID}
                render={renderProps => (
                   <p onClick={renderProps.onClick} className='google'><GoogleIcon style={{color:'red',marginRight:'5px'}}/> Login with Google</p>
                )}
