@@ -4,7 +4,6 @@ import GoogleIcon from '@mui/icons-material/Google';
 import GoogleLogin from 'react-google-login';
 import M  from "materialize-css";
 import { UserContext } from '../../App';
-import { GOOGLE_CLIENT_ID } from '../../config/keys';
 const Signup = () => {
    const {state, dispatch} = useContext(UserContext)
    const history = useHistory();
@@ -142,7 +141,7 @@ const Signup = () => {
            </button>
            <p>OR</p>
            <GoogleLogin
-               clientId={GOOGLE_CLIENT_ID}
+               clientId="803835066549-eukhrbnee2bhb3ff5apbgf5fbed1m8bj.apps.googleusercontent.com"
                render={renderProps => (
                   <p onClick={renderProps.onClick} className='google'><GoogleIcon style={{color:'red',marginRight:'5px'}}/> Login with Google</p>
                )}
