@@ -1,24 +1,15 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../../../../App';
 import './UserInbox.css'
 
-import { io } from "socket.io-client";
-function UserInbox({conversation}) {
+function UserInbox({conversation,onlineUsers}) {
     const [user, setUser] = useState(null);
-    const socket = useRef();
     const {state, dispatch} = useContext(UserContext);
-    const [onlineUsers, setOnlineUsers] = useState([]);
     const [online, setOnline] = useState(null);
-    useEffect(() => {
-        socket.current?.on("getUsers", (onlineusers) => {
-          console.log(onlineusers);
-          setOnlineUsers(onlineusers);
-        });
-      }, [state?._id]);
     useEffect(async () => {
         const friendId = await conversation.members.find((m) => m !== state?._id);
         console.log(onlineUsers);
-        setOnline(onlineUsers.find(user => user.userId === friendId));
+        setOnline(onlineUsers?.find(user => user.userId === friendId));
         fetch("https://insta-back.herokuapp.com/getuser/" + friendId , {
             headers : {
               "Authorization" : "Bearer " + localStorage.getItem("jwt")

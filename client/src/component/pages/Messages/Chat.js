@@ -36,7 +36,7 @@ function Chat() {
   const [newMessage, setNewMessage] = useState("");
   const [conversations, setConversations] = useState([]);
   const [arrivalMessage, setArrivalMessage] = useState(null);
-
+  const [onlineUsers, setOnlineUsers] = useState(null);
   const [friend, setFriend] = useState(null);
   const socket = useRef();
   const scrollRef = useRef();
@@ -63,6 +63,10 @@ function Chat() {
 
   useEffect(() => {
     socket.current.emit("addUser", state?._id);
+    socket.current.on("getUsers", (onlineusers) => {
+     // console.log(onlineusers);
+      setOnlineUsers(onlineusers);
+    });
   }, [state?._id]);
 
   useEffect(() => {
@@ -226,7 +230,7 @@ function Chat() {
                   }
                 }}
               >
-                <UserInbox conversation={c}/>
+                <UserInbox conversation={c} onlineUsers={onlineUsers}/>
               </div>
             );
           })}
