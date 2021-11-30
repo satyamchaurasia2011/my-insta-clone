@@ -102,13 +102,13 @@ a {
   align-items: center;
 }
 .sign-in{
-
   width: 100%;
 }
 .delete-i{
   display: flex;
   width: 57%;
   justify-content: end;
+  margin-right: 10px;
 }
 .google{
   font-size: 16px;

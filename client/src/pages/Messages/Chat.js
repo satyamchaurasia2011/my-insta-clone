@@ -10,9 +10,10 @@ import { Modal, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 
 import { io } from "socket.io-client";
-import { UserContext } from "../../../App";
+import { UserContext } from "../../App";
 import { useHistory } from "react-router";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { contactList, getAllUser, getUserData, messageRoom, selectUser, sendMessage } from "../../services/api";
 const style = {
   position: "absolute",
   top: "50%",
@@ -70,18 +71,12 @@ function Chat() {
   }, [state?._id]);
 
   useEffect(() => {
-    fetch(`https://insta-back.herokuapp.com/conversation/${state?._id}`, {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("jwt"),
-      },
+    contactList(state?._id).then((contact) => {
+      setConversations(contact);
     })
-      .then((res) => res.json())
-      .then((contact) => {
-        setConversations(contact);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    .catch((err) => {
+      console.log(err);
+    });
   }, []);
   //scrolling
   useEffect(() => {
@@ -89,34 +84,17 @@ function Chat() {
   }, [messages]);
 
   useEffect(() => {
-    fetch(`https://insta-back.herokuapp.com/messages/${currentChat?._id}`, {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("jwt"),
-      },
-    })
-      .then((res) => res.json())
-      .then((msg) => setMessages(msg))
-      .catch((err) => console.log(err));
-
+    messageRoom(currentChat?._id).then((msg) => setMessages(msg))
+    .catch((err) => console.log(err));
     const friendId = currentChat?.members.find((m) => m !== state?._id);
 
-    fetch(`https://insta-back.herokuapp.com/getuser/${friendId}`, {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("jwt"),
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => setFriend(data))
-      .catch((err) => console.log(err));
+    getUserData(friendId).then((data) => setFriend(data))
+    .catch((err) => console.log(err));
+      
   }, [currentChat]);
 
   useEffect(() => {
-    fetch("https://insta-back.herokuapp.com/alluser", {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("jwt"),
-      },
-    })
-      .then((res) => res.json())
+      getAllUser()
       .then((users) => setUsers(users));
   }, []);
 
@@ -139,15 +117,8 @@ function Chat() {
         receiverId,
         text: newMessage,
       });
-      fetch("https://insta-back.herokuapp.com/message", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + localStorage.getItem("jwt"),
-        },
-        body: JSON.stringify(message),
-      })
-        .then((res) => res.json())
+      
+      sendMessage(message)
         .then((savemsg) => setMessages([...messages, savemsg]))
         .catch((err) => console.log(err));
       //   try {
@@ -163,15 +134,7 @@ function Chat() {
   //add contact on left
   const addConvo = (user) => {
     console.log(user);
-    fetch("https://insta-back.herokuapp.com/conversation", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("jwt"),
-      },
-      body: JSON.stringify({ senderId: state?._id, receiverId: user._id }),
-    })
-      .then((res) => res.json())
+    selectUser(state,user)
       .then((convo) => setConversations([...conversations, convo]))
       .catch((err) => console.log(err));
   };

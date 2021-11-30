@@ -1,34 +1,21 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { UserContext } from "../../App";
+import { UserContext } from "../App";
 import M from 'materialize-css';
 import { Link } from "react-router-dom";
+import { allPosts, postComment, postLike, postUnlike, removeComment, removePost } from '../services/api';
 const Home = () => {
     const [data, setData] = useState(null)
     const {state, dispatch} = useContext(UserContext)
     const [read, setRead] = useState(false)
     useEffect(() =>{
-        fetch('https://insta-back.herokuapp.com/subscribedpost', {
-            headers : {
-                "Authorization" : "Bearer " + localStorage.getItem("jwt")
-            }
-        }).then(res => res.json())
+        allPosts()
         .then(result => {
             // console.log(result);
              setData(result.posts)
-             console.log(data);
         })
-    },[])
+    },[]) 
     const likePost = (id) => {
-        fetch('https://insta-back.herokuapp.com/like', {
-            method : "put",
-            headers : {
-                "Content-Type" : "application/json",
-                "Authorization" : "Bearer " + localStorage.getItem("jwt")
-            }, 
-            body : JSON.stringify({
-                postId : id
-            })
-        }).then(res => res.json())
+       postLike(id)
         .then(result => {
             // console.log(result);
             const newData = data.map(item => {
@@ -44,16 +31,7 @@ const Home = () => {
         })
     }
     const unlikePost = (id) => {
-        fetch('https://insta-back.herokuapp.com/unlike', {
-            method : "put",
-            headers : {
-                "Content-Type" : "application/json",
-                "Authorization" : "Bearer " + localStorage.getItem("jwt")
-            }, 
-            body : JSON.stringify({
-                postId : id
-            })
-        }).then(res => res.json())
+        postUnlike(id)
         .then(result => {
             // console.log(result);
             const newData = data.map(item => {
@@ -69,17 +47,7 @@ const Home = () => {
         })
     }
     const commentPost =(text, postId) => {
-        fetch('https://insta-back.herokuapp.com/comment', {
-            method:"put",
-            headers: {
-                "Content-Type" : "application/json",
-                "Authorization" : "Bearer " + localStorage.getItem("jwt")
-            },
-            body : JSON.stringify({
-                postId,
-                text
-            })
-        }).then(res => res.json())
+       postComment(text,postId)
         .then(result => {
             //  console.log(result);
             const newData = data.map(item => {
@@ -109,13 +77,7 @@ const Home = () => {
         )
     }
     const deletePost = (postid) => {
-        fetch(`https://insta-back.herokuapp.com/deletepost/${postid}`, {
-            method : "delete",
-            headers: {
-                "Content-Type" : "application/json",
-                "Authorization" : "Bearer " + localStorage.getItem("jwt")
-            }
-        }).then(res =>res.json())
+       removePost(postid)
         .then(result => {
             // console.log(result);
             const newData = data.filter(item => {
@@ -126,16 +88,9 @@ const Home = () => {
         })
     }
     const deleteComment = (postId,commentid) => {
-        fetch(`https://insta-back.herokuapp.com/deletecomment/${postId}`, {
-            method : "delete",
-            headers: {
-                "Content-Type" : "application/json",
-                "Authorization" : "Bearer " + localStorage.getItem("jwt")
-            },
-            body: JSON.stringify({ commentid })
-        }).then(res =>res.json())
+        removeComment(postId, commentid)
         .then(result => {
-        //  console.log(result);
+         console.log(result);
          const newData = data.map(item => {
             if(item._id === result._id){
                 return result
@@ -150,31 +105,32 @@ const Home = () => {
         <>
         {
             data ? 
-            <div className="home">
-                {data.length===0 && <h1>No Post To Show</h1>}
-               { data.map(item => {
+           ( <div className="home">
+            {
+                data.map(item => {
                     return (
                       <div className="card home-card" key = {item._id}>
                           <div className ='post-head'>
-                            <div>
+                          <div>
                              <img className ="himg" 
                             src={item.postedBy.pic}
                             alt="img"
                            />
                           </div> 
-                        <div className='post-by'>
-                            <h5 style={{padding : "5px"}}><Link style={{position: "relative",top: "-2px"}}
-                             to={item.postedBy._id !== state._id?'/profile/'+item.postedBy._id : "/profile"}>
+                          <div className='post-by'>
+                            <h5 style={{padding : "5px"}}>
+                                <Link style={{position: "relative",top: "-2px"}}
+                                    to={item.postedBy._id !== state._id?'/profile/'+item.postedBy._id : "/profile"}>
                                 {item.postedBy.name}</Link>
-                            </h5>
-                        </div>
-                        <div className='delete-i'>
+                             </h5>
+                         </div>
+                         <div className='delete-i'>
                          {item.postedBy._id === state._id && 
                                 <i style={{fontSize:'30px'}} onClick={()=>deletePost(item._id)} className="material-icons">
                                 delete
                                 </i>}
                         </div>
-                        </div>
+                         </div>
                         <div className="card-image">
                          <img
                          src={item.photo}
@@ -240,7 +196,7 @@ const Home = () => {
                 })
             }
                 
-            </div>
+            </div>)
             : 
             <h2>loading...!</h2>
         }

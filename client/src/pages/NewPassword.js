@@ -1,22 +1,14 @@
 import {React, useState, useContext} from 'react'
 import {Link, useHistory, useParams} from 'react-router-dom'
 import M from 'materialize-css';
+import { setNewPassword } from '../services/api';
 const NewPassword = () => {
    const history = useHistory();
    const [password, setPassword] = useState("");
    const [visibile, setVisibile] = useState(false);
    const {token} = useParams();
    const postData = () => {
-      fetch("https://insta-back.herokuapp.com/new-password", {
-         method : "post",
-         headers : {
-            "Content-Type" : "application/json"
-         },
-         body : JSON.stringify({
-            password,
-            token
-         })
-      }).then(res => res.json())
+      setNewPassword({password, token})
       .then(data => {
          if(data.error){
             M.toast({html : data.error, classes:"#d32f2f red darken-2"})

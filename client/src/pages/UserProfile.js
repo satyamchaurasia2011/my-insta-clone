@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { UserContext } from "../../App";
+import { UserContext } from "../App";
 import { useParams } from "react-router-dom";
+import { getUserProfile, userFollow, userUnfollow } from '../services/api';
 const Profile = () => {
     const [userProfile, setUserProfile] = useState(null)
     const {state, dispatch} = useContext(UserContext)
@@ -8,11 +9,7 @@ const Profile = () => {
     const [isfollow, setIsFollow] = useState(state?state.following.includes(userid):false)
     
     useEffect(() => {
-        fetch(`https://insta-back.herokuapp.com/user/${userid}`, {
-            headers : {
-                "Authorization" : "Bearer " + localStorage.getItem("jwt")
-            }
-        }).then(res => res.json())
+        getUserProfile(userid)
         .then(result => {
             setUserProfile(result)
             // setMyPic(result.mypost)
@@ -20,16 +17,7 @@ const Profile = () => {
     },[])
 
     const followUser = () => {
-        fetch('https://insta-back.herokuapp.com/follow', {
-            method:"put",
-            headers: {
-                "Content-Type" : "application/json",
-                "Authorization" : "Bearer " + localStorage.getItem("jwt")
-            },
-            body : JSON.stringify({
-               followId : userid
-            })
-        }).then(res => res.json())
+       userFollow(userid)
         .then(result => {
           dispatch({type : 'UPDATE', payload:{following:result.following, followers:result.followers}})
           localStorage.setItem("user", JSON.stringify(result))
@@ -48,16 +36,7 @@ const Profile = () => {
         })
     }
     const unFollowUser = () => {
-        fetch('https://insta-back.herokuapp.com/unfollow', {
-            method:"put",
-            headers: {
-                "Content-Type" : "application/json",
-                "Authorization" : "Bearer " + localStorage.getItem("jwt")
-            },
-            body : JSON.stringify({
-               unfollowId : userid
-            })
-        }).then(res => res.json())
+       userUnfollow(userid)
         .then(result => {
             dispatch({type : 'UPDATE', payload:{following:result.following, followers:result.followers}})
             localStorage.setItem("user", JSON.stringify(result))

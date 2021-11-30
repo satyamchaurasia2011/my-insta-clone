@@ -2,17 +2,17 @@ import {React, useEffect, createContext, useReducer, useContext, useState} from 
 import './App.css';
 import Navbar from '../src/component/Navbar';
 import { BrowserRouter, Route, useHistory, Switch, Redirect } from "react-router-dom";
-import Home from '../src/component/pages/Home';
-import Profile from '../src/component/pages/Profile';
-import Signin from '../src/component/pages/Signin';
-import Signup from '../src/component/pages/Signup';
-import CreatePost from '../src/component/pages/CreatePost';
-import UserProfile from '../src/component/pages/UserProfile';
-import SubscriberPost from '../src/component/pages/SubscriberPost';
-import Reset from '../src/component/pages/Reset';
-import NewPassword from '../src/component/pages/NewPassword';
-import {reducer, initialState} from './component/reducers/UserReducer';
-import Chat from './component/pages/Messages/Chat';
+import Home from '../src/pages/Home';
+import Profile from '../src/pages/Profile';
+import Signin from '../src/pages/Signin';
+import Signup from '../src/pages/Signup';
+import CreatePost from '../src/pages/CreatePost';
+import UserProfile from '../src/pages/UserProfile';
+import SubscriberPost from '../src/pages/SubscriberPost';
+import Reset from '../src/pages/Reset';
+import NewPassword from '../src/pages/NewPassword';
+import {reducer, initialState} from './reducers/UserReducer';
+import Chat from './pages/Messages/Chat';
 export const UserContext = createContext()
 const Routing = () => {
   const history = useHistory();

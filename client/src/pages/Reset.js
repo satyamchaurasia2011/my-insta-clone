@@ -1,6 +1,7 @@
 import {React, useState, useContext} from 'react'
 import {Link, useHistory} from 'react-router-dom'
 import M from 'materialize-css';
+import { resetPassword } from '../services/api';
 const Reset = () => {
    const history = useHistory();
    const [email, setEmail] = useState("");
@@ -9,15 +10,7 @@ const Reset = () => {
          M.toast({html : "Invalid email!", classes:"#d32f2f red darken-2"})
       }
       else {
-      fetch("https://insta-back.herokuapp.com/reset-password", {
-         method : "post",
-         headers : {
-            "Content-Type" : "application/json"
-         },
-         body : JSON.stringify({
-            email
-         })
-      }).then(res => res.json())
+      resetPassword(email)
       .then(data => {
          if(data.error){
             M.toast({html : data.error, classes:"#d32f2f red darken-2"})
@@ -42,7 +35,7 @@ const Reset = () => {
                 onChange = {(event) => setEmail(event.target.value)}
              />
               <button onClick = {postData}
-              className="btn waves-effect waves-light #1e88e5 blue darken-1">Reset Password
+              className="btn waves-effect waves-light #1e88e5 blue darken-1" style={{margin:'30px auto 30px'}}>Reset Password
               </button>
            </div>
        </div>

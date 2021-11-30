@@ -10,6 +10,7 @@ import ClickAwayListener from "@mui/base/ClickAwayListener";
 import MessageRoundedIcon from "@mui/icons-material/MessageRounded";
 import LogoutIcon from '@mui/icons-material/Logout';
 import { ListItemText, MenuItem, Paper, Popper } from "@mui/material";
+import { searchUser } from "../services/api";
 const Navbar = () => {
   const searchModal = useRef(null);
   const [search, setSearch] = useState("");
@@ -119,21 +120,15 @@ const Navbar = () => {
       ];
     }
   };
-  const searchUser = (query) => {
+  const handleSearch = (query) => {
     setSearch(query);
-    fetch("https://insta-back.herokuapp.com/search-user", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        query,
-      }),
+    searchUser(query).then(user => {
+      setFindUser(user);
     })
-      .then((res) => res.json())
-      .then((result) => {
-        setFindUser(result.user);
-      });
+    .catch(err => {
+      console.log(err);
+    })
+    
   };
   return (
     <div>
@@ -163,7 +158,7 @@ const Navbar = () => {
               type="text"
               placeholder="search user"
               value={search}
-              onChange={(event) => searchUser(event.target.value)}
+              onChange={(event) => handleSearch(event.target.value)}
             />
             <ul className="collection">
               {findUser.map((user) => {

@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { UserContext } from '../../../../App';
+import { UserContext } from '../../../App';
+import { getUserData } from '../../../services/api';
 import './UserInbox.css'
 
 function UserInbox({conversation,onlineUsers}) {
@@ -10,11 +11,7 @@ function UserInbox({conversation,onlineUsers}) {
         const friendId = await conversation.members.find((m) => m !== state?._id);
        // console.log(onlineUsers);
         setOnline(onlineUsers?.find(user => user.userId === friendId));
-        fetch("https://insta-back.herokuapp.com/getuser/" + friendId , {
-            headers : {
-              "Authorization" : "Bearer " + localStorage.getItem("jwt")
-            }
-          }).then(res => res.json())
+        getUserData(friendId)
           .then(data => setUser(data))
           .catch(err => console.log(err));
       }, [conversation, state?._id,onlineUsers]);
