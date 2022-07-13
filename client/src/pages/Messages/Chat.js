@@ -13,7 +13,14 @@ import { io } from "socket.io-client";
 import { UserContext } from "../../App";
 import { useHistory } from "react-router";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import { contactList, getAllUser, getUserData, messageRoom, selectUser, sendMessage } from "../../services/api";
+import {
+  contactList,
+  getAllUser,
+  getUserData,
+  messageRoom,
+  selectUser,
+  sendMessage,
+} from "../../services/api";
 const style = {
   position: "absolute",
   top: "50%",
@@ -47,7 +54,7 @@ function Chat() {
     if (window.screen.width < 600) setRightShow(false);
     socket.current = io.connect("https://insta-back.herokuapp.com/");
     socket.current.on("getMessage", (data) => {
-     // console.log(data);
+      // console.log(data);
       setArrivalMessage({
         sender: data.senderId,
         text: data.text,
@@ -62,21 +69,22 @@ function Chat() {
       setMessages((prev) => [...prev, arrivalMessage]);
   }, [arrivalMessage, currentChat]);
 
-  useEffect(async() => {
+  useEffect(async () => {
     socket.current.emit("addUser", state?._id);
     await socket.current.on("getUsers", (onlineusers) => {
-     // console.log(onlineusers);
+      // console.log(onlineusers);
       setOnlineUsers(onlineusers);
     });
   }, [state?._id]);
 
   useEffect(() => {
-    contactList(state?._id).then((contact) => {
-      setConversations(contact);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    contactList(state?._id)
+      .then((contact) => {
+        setConversations(contact);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
   //scrolling
   useEffect(() => {
@@ -84,18 +92,18 @@ function Chat() {
   }, [messages]);
 
   useEffect(() => {
-    messageRoom(currentChat?._id).then((msg) => setMessages(msg))
-    .catch((err) => console.log(err));
+    messageRoom(currentChat?._id)
+      .then((msg) => setMessages(msg))
+      .catch((err) => console.log(err));
     const friendId = currentChat?.members.find((m) => m !== state?._id);
 
-    getUserData(friendId).then((data) => setFriend(data))
-    .catch((err) => console.log(err));
-      
+    getUserData(friendId)
+      .then((data) => setFriend(data))
+      .catch((err) => console.log(err));
   }, [currentChat]);
 
   useEffect(() => {
-      getAllUser()
-      .then((users) => setUsers(users));
+    getAllUser().then((users) => setUsers(users));
   }, []);
 
   //submit
@@ -117,7 +125,7 @@ function Chat() {
         receiverId,
         text: newMessage,
       });
-      
+
       sendMessage(message)
         .then((savemsg) => setMessages([...messages, savemsg]))
         .catch((err) => console.log(err));
@@ -133,8 +141,8 @@ function Chat() {
 
   //add contact on left
   const addConvo = (user) => {
-    console.log(user);
-    selectUser(state,user)
+    // console.log(user);
+    selectUser(state, user)
       .then((convo) => setConversations([...conversations, convo]))
       .catch((err) => console.log(err));
   };
@@ -193,7 +201,7 @@ function Chat() {
                   }
                 }}
               >
-                <UserInbox conversation={c} onlineUsers={onlineUsers}/>
+                <UserInbox conversation={c} onlineUsers={onlineUsers} />
               </div>
             );
           })}
@@ -217,7 +225,7 @@ function Chat() {
                   fontSize: "27px",
                   cursor: "pointer",
                 }}
-                className='arrow-bck'
+                className="arrow-bck"
               />
               <img src={friend?.pic} alt />
               <h5 onClick={() => history.push(`/profile/${friend?._id}`)}>
@@ -274,4 +282,4 @@ function Chat() {
   );
 }
 
-export default Chat;  
+export default Chat;

@@ -8,7 +8,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import ClickAwayListener from "@mui/base/ClickAwayListener";
 import MessageRoundedIcon from "@mui/icons-material/MessageRounded";
-import LogoutIcon from '@mui/icons-material/Logout';
+import LogoutIcon from "@mui/icons-material/Logout";
 import { ListItemText, MenuItem, Paper, Popper } from "@mui/material";
 import { searchUser } from "../services/api";
 const Navbar = () => {
@@ -52,7 +52,7 @@ const Navbar = () => {
           <Link to="/inbox">Messages</Link>
         </li>,
         <li
-          key='5'
+          key="5"
           className="resp-out"
           onClick={() => {
             localStorage.clear();
@@ -61,7 +61,7 @@ const Navbar = () => {
             setMenu(false);
           }}
         >
-          <LogoutIcon/>
+          <LogoutIcon />
         </li>,
         <li key="6" className="in-right">
           <img onClick={handleClick} src={state?.pic} alt />
@@ -122,13 +122,13 @@ const Navbar = () => {
   };
   const handleSearch = (query) => {
     setSearch(query);
-    searchUser(query).then(user => {
-      setFindUser(user);
-    })
-    .catch(err => {
-      console.log(err);
-    })
-    
+    searchUser(query)
+      .then((user) => {
+        setFindUser(user.user);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <div>
@@ -192,27 +192,29 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-     {state&&( <div className="responsive-nav">
-        <Link to="/">
-          <HomeIcon className="res-icon" />
-        </Link>
-        <i
-          data-target="modal1"
-          className="material-icons modal-trigger"
-          style={{ color: "black", fontSize: "34px" }}
-        >
-          search
-        </i>
-        <Link to="/createpost">
-          <AddCircleIcon className="res-icon" />
-        </Link>
-        <Link to="/inbox">
-          <MessageRoundedIcon className="res-icon" />
-        </Link>
-        <Link to="/profile">
-          <img src={state?.pic} alt />
-        </Link>
-      </div>)}
+      {state && (
+        <div className="responsive-nav">
+          <Link to="/">
+            <HomeIcon className="res-icon" />
+          </Link>
+          <i
+            data-target="modal1"
+            className="material-icons modal-trigger"
+            style={{ color: "black", fontSize: "34px" }}
+          >
+            search
+          </i>
+          <Link to="/createpost">
+            <AddCircleIcon className="res-icon" />
+          </Link>
+          <Link to="/inbox">
+            <MessageRoundedIcon className="res-icon" />
+          </Link>
+          <Link to="/profile">
+            <img src={state?.pic} alt />
+          </Link>
+        </div>
+      )}
     </div>
   );
 };
