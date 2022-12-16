@@ -3,14 +3,14 @@
     "name": "instagram-clone",
     "builds": [
         {
-            "src": "app.js",
+            "src": "./app.js",
             "use": "@vercel/node"
         }
     ],
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "/app.js"
+            "dest": "/"
         }
     ]
 }
