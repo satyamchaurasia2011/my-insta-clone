@@ -27,7 +27,7 @@ router.post("/conversation", requireLogin,  (req, res) => {
       })
        
     }
-  })
+  }).catch(err => console.log(err))
  
 });
 

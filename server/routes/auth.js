@@ -82,6 +82,7 @@ router.post("/signin", (req, res) => {
             console.log(err);
         })
     })
+    .catch(err => console.log(err))
 })
 //google
 
@@ -138,7 +139,7 @@ router.post("/signupwithgoogle", async (req,res) => {
 				});
 			}
 			// console.log(response.payload);
-		});
+		})
 })
 
 router.post('/reset-password', (req,res) => {
