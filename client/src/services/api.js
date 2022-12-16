@@ -1,4 +1,4 @@
-let server = "https://my-insta-clone-delta.vercel.app";
+let server = "https://instagram-clone-y1at.onrender.com";
 
 ////Sign-In////////////
 export const userSignin = async (email, password) => {
