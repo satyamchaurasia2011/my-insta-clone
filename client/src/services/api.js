@@ -1,4 +1,4 @@
-let server = "https://insta-back.herokuapp.com";
+let server = "https://my-insta-clone-delta.vercel.app";
 
 ////Sign-In////////////
 export const userSignin = async (email, password) => {
