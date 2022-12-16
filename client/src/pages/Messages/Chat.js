@@ -52,7 +52,7 @@ function Chat() {
   const handleClose = () => setOpen(false);
   useEffect(() => {
     if (window.screen.width < 600) setRightShow(false);
-    socket.current = io.connect("https://insta-back.herokuapp.com/");
+    socket.current = io.connect("https://instagram-clone-y1at.onrender.com/");
     socket.current.on("getMessage", (data) => {
       // console.log(data);
       setArrivalMessage({
