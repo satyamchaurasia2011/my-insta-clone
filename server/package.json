@@ -7,9 +7,6 @@
      "dev" : "nodemon app.js",
      "build" : "npm i"
   },
-  "engines": {
-    "node": "16.16..0"
-  },
   "author": "",
   "license": "ISC",
   "dependencies": {
